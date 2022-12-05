@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller.ChatController">
+   <left>
+      <HBox prefHeight="698.0" prefWidth="346.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="500.0" prefWidth="67.0" styleClass="chat-slide-bar-background" stylesheets="@sample.css">
+               <children>
+                  <Pane prefHeight="43.0" prefWidth="68.0" />
+                  <ImageView fx:id="slideBarAvatar" fitHeight="50.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="50.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/studyroom/weChat.jpg" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="258.0" prefWidth="58.0" VBox.vgrow="ALWAYS" />
+                  <ImageView fx:id="signOutBtn" fitHeight="45.0" fitWidth="45.0" onMouseClicked="#onSignOut" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: Hand;">
+                     <image>
+                        <Image url="@images/studyroom/signOut.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="40.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="600.0" prefWidth="279.0" style="-fx-background-color: #272829;">
+               <children>
+                  <HBox prefHeight="41.0" prefWidth="283.0" style="-fx-background-color: #272829;" />
+                  <ScrollPane prefHeight="660.0" prefWidth="302.0">
+                     <content>
+                        <VBox fx:id="allContactBox" prefHeight="657.0" prefWidth="277.0" style="-fx-spacing: 2; -fx-background-color: #272829;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" onMouseClicked="#changeToGroupChat" prefHeight="80.0" prefWidth="216.0" style="-fx-background-color: #19191A; -fx-cursor: HAND; -fx-spacing: 5;">
+                                 <children>
+                                    <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/avatar/husky.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="121.0" style="-fx-background-color: #19191A; -fx-spacing: 5;">
+                                       <children>
+                                          <Label text="Group Chat" textFill="#fafcffe5">
+                                             <font>
+                                                <Font name="Arial Black" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="groupChatContentLabel" text="Label" textFill="#c7c8c9">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_RIGHT" prefHeight="73.0" prefWidth="70.0">
+                                       <children>
+                                          <Label fx:id="groupChatTimeLabel" prefHeight="17.0" prefWidth="84.0" text="Yesterday" textFill="#c7c8c9">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets right="10.0" top="7.5" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </left>
+   <center>
+      <VBox prefHeight="608.0" prefWidth="873.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="40.0" prefWidth="532.0" styleClass="chat-background" stylesheets="@sample.css" />
+            <Separator prefHeight="7.0" prefWidth="833.0" style="-fx-background-color: #4D4D4D;" />
+            <ScrollPane fx:id="chatScrollPane" minWidth="855.0" prefHeight="591.0" prefWidth="892.0" styleClass="transparent-background" stylesheets="@sample.css">
+               <content>
+                  <VBox fx:id="chatArea" maxWidth="838.0" prefHeight="588.0" prefWidth="852.0" styleClass="chat-background" stylesheets="@sample.css" />
+               </content>
+            </ScrollPane>
+            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="819.0" stylesheets="@sample.css">
+               <children>
+                  <TextField fx:id="textField" onKeyPressed="#onKeyPressedTextArea" prefHeight="55.0" prefWidth="705.0" />
+                  <Button fx:id="sendMsg" alignment="CENTER" contentDisplay="CENTER" minHeight="45.0" minWidth="58.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="53.0" prefWidth="58.0" styleClass="send-btn" stylesheets="@sample.css" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

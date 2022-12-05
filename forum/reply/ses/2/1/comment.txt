@@ -1,0 +1,6 @@
+I tried this and it totally works. The code is:
+
+stage.getIcons().add(
+   new Image(
+      <yourclassname>.class.getResourceAsStream( "icon.png" ))); 
+icon.png is under the same folder as the source files.

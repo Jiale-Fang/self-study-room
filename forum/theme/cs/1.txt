@@ -1,0 +1,1 @@
+How can I pass parameters to a secondary window in javafx? 

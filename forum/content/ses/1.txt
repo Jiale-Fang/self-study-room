@@ -1,0 +1,12 @@
+Using MVC
+
+Most of this answer focuses on a direct call to pass a parameter from a calling class to the controller.
+
+If instead, you want to decouple the caller and controller and use a more general architecture involving a model class with settable and listenable properties to achieve inter-controller communication, see the following basic overview:
+
+Applying MVC With JavaFx
+Recommended Approach
+
+This answer enumerates different mechanisms for passing parameters to FXML controllers.
+
+For small applications I highly recommend passing parameters directly from the caller to the controller - it's simple, straightforward and requires no extra frameworks.

@@ -1,0 +1,6 @@
+Assuming your stage is "stage" and the file is on the filesystem:
+
+stage.getIcons().add(new Image("file:icon.png"));
+As per the comment below, if it's wrapped in a containing jar you'll need to use the following approach instead:
+
+stage.getIcons().add(new Image(<yourclassname>.class.getResourceAsStream("icon.png")));
