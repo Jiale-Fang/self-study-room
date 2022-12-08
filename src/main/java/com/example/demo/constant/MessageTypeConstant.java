@@ -9,5 +9,7 @@ public class MessageTypeConstant {
 
     public static final int ONE_SEAT_INFO = 4;
 
+    public static final int REMOVE_INFO = 5;
+
 
 }

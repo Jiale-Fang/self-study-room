@@ -26,7 +26,6 @@ public class ClientThread extends Thread {
     }
 
     public void run() {
-
         while (true) {
             try {
                 //Come from server
@@ -40,6 +39,7 @@ public class ClientThread extends Thread {
                             case MessageTypeConstant.GROUP_CHAT_MESSAGE -> chatController.receiveGroupMessage(message);
                             case MessageTypeConstant.ALL_SEAT_INFO -> studyRoomController.updateAllSeatsInfo(message);
                             case MessageTypeConstant.ONE_SEAT_INFO -> studyRoomController.updateOneSeat(message);
+                            case MessageTypeConstant.REMOVE_INFO -> beenRemoved();
                         }
                     }
                 });
@@ -49,4 +49,9 @@ public class ClientThread extends Thread {
             }
         }
     }
+
+    private void beenRemoved() {
+        studyRoomController.beenRemoved();
+    }
+
 }

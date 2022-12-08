@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.GroupChatApplication;
+import com.example.demo.ChatApplication;
 import com.example.demo.constant.CommonConstant;
 import com.example.demo.entity.Message;
 import com.example.demo.pojo.ChatLog;
@@ -72,7 +72,7 @@ public class ChatController {
         initializeGroupChatCard();
         initializeContactCard(this.userId);
         changeToGroupChat();
-        slideBarAvatar.setImage(new Image(GroupChatApplication.class.getResource(this.avatar).toString(), 50, 50, true, true));
+        slideBarAvatar.setImage(new Image(ChatApplication.class.getResource(this.avatar).toString(), 50, 50, true, true));
     }
 
     private void initializeGroupChatCard(){
@@ -94,7 +94,7 @@ public class ChatController {
         contactBox.setStyle("-fx-background-color: #19191A; -fx-spacing: 5; -fx-cursor: HAND;");
         contactBox.setAlignment(Pos.CENTER_LEFT);
         contactBox.setPrefSize(216, 80);
-        ImageView avatarImg = new ImageView(new Image(String.valueOf(GroupChatApplication.class.getResource(contactVO.getAvatar())), 65, 65, true, true));
+        ImageView avatarImg = new ImageView(new Image(String.valueOf(ChatApplication.class.getResource(contactVO.getAvatar())), 65, 65, true, true));
 
         VBox textBox = new VBox();
         textBox.setPrefSize(142, 80);
@@ -197,7 +197,6 @@ public class ChatController {
     public void receiveMessage(Message message) {
         //When you are talking to your friends, append this message
         if (message.getSenderId() == this.friendId) {
-            System.out.println("=====私聊信息");
             UserChatVO userChatVO = (UserChatVO) message.getObject();
             appendMessage(false, userChatVO.getContent(), userChatVO.getAvatar(), userChatVO.getUsername());
             chatScrollPane.setVvalue(1.0);
@@ -272,9 +271,9 @@ public class ChatController {
     private ImageView generateAvatar(boolean isMyMessage, String avatar) {
         Image img;
         if (isMyMessage)
-            img = new Image(Objects.requireNonNull(GroupChatApplication.class.getResource(avatar)).toString(), 40.0, 40.0, true, true);
+            img = new Image(Objects.requireNonNull(ChatApplication.class.getResource(avatar)).toString(), 40.0, 40.0, true, true);
         else
-            img = new Image(Objects.requireNonNull(GroupChatApplication.class.getResource(avatar)).toString(), 40.0, 40.0, true, true);
+            img = new Image(Objects.requireNonNull(ChatApplication.class.getResource(avatar)).toString(), 40.0, 40.0, true, true);
         ImageView imageView = new ImageView(img);
         imageView.resize(40, 40);
         imageView.setFitHeight(40);

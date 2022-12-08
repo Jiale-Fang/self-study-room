@@ -92,7 +92,7 @@ public class UserDao {
     public List<ContactVO> getContactInfo(int userId) {
         try {
             Connection connection = JdbcUtil.getConnection();
-            String sql = "(SELECT c.id, uu.avatar, u.username, c.create_time, c.content, uu.id friend_id " +
+            String sql = "(SELECT c.id, uu.avatar, uu.username, c.create_time, c.content, uu.id friend_id " +
                     "FROM chat_log c, user u, user uu " +
                     "WHERE c.sender = u.id AND u.id = ? AND c.text_type = 2 AND uu.id = c.receiver) " +
                     "UNION " +
@@ -120,7 +120,6 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
-
 
     public int insert(User user) {
         Connection conn = null;

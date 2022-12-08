@@ -34,7 +34,7 @@ public class StudyRoomApplication extends Application{
             studyRoomController.setOos(client.oos);
 
             //Initialize chat
-            FXMLLoader chatFxmlLoader = new FXMLLoader(GroupChatApplication.class.getResource("chatroom-view.fxml"));
+            FXMLLoader chatFxmlLoader = new FXMLLoader(ChatApplication.class.getResource("chatroom-view.fxml"));
             Parent chatRoot = chatFxmlLoader.load();
             ChatController chatController = chatFxmlLoader.getController();
             chatController.setOos(client.oos);

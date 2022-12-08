@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class Server {
@@ -17,6 +18,8 @@ public class Server {
     public static Map<Integer, Seat> seatMap = new HashMap<>();
     //    public static Queue<GroupServerThread> clientThread = new LinkedList<>();
     public static Map<Integer, ServerThread> clientThreadMap = new HashMap<>();
+    //Restrict maximum online people
+    public LFUCache lfuCache = new LFUCache(100);
 
     public Server() {
         try {
@@ -34,18 +37,52 @@ public class Server {
 
                 //Share latest seats info to every client
                 Message message = new Message(MessageTypeConstant.ALL_SEAT_INFO, Server.seatMap);
-                oos.writeObject(message);
+                message.setSenderId(userId);
+
+                //Remove inactive user
+                int removeId = lfuCache.put(userId);
+                if (removeId != -1) {
+                    updateSeat(removeId);
+                    oos.writeObject(message);
+                    removeClient(removeId);
+                }else {
+                    oos.writeObject(message);
+                }
                 System.out.println("A user comes in, his(her) id is: " + userId);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void removeClient(ServerThread serverThread) {
-        clientThreadMap.remove(serverThread);
+    private void updateSeat(int removeId){
+        for (int i = 1; i <= 18; i++) {
+            Seat seat = seatMap.get(i);
+            if (seat.getUserId() == removeId){
+                if (seat.isSitDown()){
+                    seat.setUserId(0);
+                    seat.setSitDown(false);
+                    seatMap.put(i, seat);
+                }
+                break;
+            }
+        }
+    }
+
+    private void removeClient(int removeId) {
+        try {
+            //notify the remove client
+            Message messageRemove = new Message(MessageTypeConstant.REMOVE_INFO, removeId);
+            ServerThread removeST = clientThreadMap.get(removeId);
+            removeST.oos.writeObject(messageRemove);
+            clientThreadMap.remove(removeId);
+            removeST.interrupt();
+            removeST.oos.close();
+            removeST.ois.close();
+            System.out.println("Remove one user, his(her) id is: " + removeId);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void initializeAllSeats() {
@@ -61,3 +98,4 @@ public class Server {
         new Server();
     }
 }
+

@@ -131,7 +131,6 @@ public class MomentDetailController {
         this.authorId = momentDetailVO.getAuthorId();
         List<CommentVO> commentVOList = momentDetailVO.getCommentVOList();
         for (CommentVO commentVO : commentVOList) {
-            System.out.println(commentVO);
             addComment(commentVO.getUsername(), commentVO.getFormatTime(), commentVO.getAvatar(), commentVO.getContent());
         }
     }

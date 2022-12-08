@@ -24,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -64,7 +65,7 @@ public class StudyRoomController implements Initializable {
         try {
             //Initialize seats
             initializeSeats();
-            taskViewFxml = new FXMLLoader(HelloApplication.class.getResource("task.fxml"));
+            taskViewFxml = new FXMLLoader(TaskApplication.class.getResource("task.fxml"));
             userInfoCardFxml = new FXMLLoader(UserInfoCardApplication.class.getResource("user-info-card.fxml"));
             Parent taskViewRoot = taskViewFxml.load();
             Parent userInfoCardRoot = userInfoCardFxml.load();
@@ -102,6 +103,12 @@ public class StudyRoomController implements Initializable {
         btnMap.put(10, seatBtn10);
         btnMap.put(11, seatBtn11);
         btnMap.put(12, seatBtn12);
+        btnMap.put(13, seatBtn13);
+        btnMap.put(14, seatBtn14);
+        btnMap.put(15, seatBtn15);
+        btnMap.put(16, seatBtn16);
+        btnMap.put(17, seatBtn17);
+        btnMap.put(18, seatBtn18);
 //        List<Seat> seatList = studyRoomDao.getAllSeats();
     }
 
@@ -141,13 +148,13 @@ public class StudyRoomController implements Initializable {
     }
 
     @FXML
-    private void openDiagramView(){
+    private void openDiagramView() {
         DiagramApplication diagramApplication = new DiagramApplication();
         diagramApplication.start(new Stage());
     }
 
     @FXML
-    private void openUserInfo(){
+    private void openUserInfo() {
         LoginApplication loginApplication = new LoginApplication();
         loginApplication.openCenter(this.userId);
     }
@@ -183,7 +190,6 @@ public class StudyRoomController implements Initializable {
 
     private void sitOrStand(Button button) {
         Seat seat = (Seat) button.getUserData();
-        System.out.println("seat的用户id：" + seat.getUserId());
         if (seat.isSitDown()) {
             if (seat.getUserId() != this.userId) {
                 openUserInfoCard(seat.getUserId());
@@ -215,6 +221,7 @@ public class StudyRoomController implements Initializable {
         sitDownBtn(button);
         openSetTaskView();
         Message message = new Message(MessageTypeConstant.ONE_SEAT_INFO, seat);
+        message.setSenderId(this.userId);
         this.isSitDown = true;
         try {
             oos.writeObject(message);
@@ -232,6 +239,7 @@ public class StudyRoomController implements Initializable {
         String[] split = button.getId().split("seatBtn");
         seat.setSeatId(Integer.parseInt(split[1]));
         Message message = new Message(MessageTypeConstant.ONE_SEAT_INFO, seat);
+        message.setSenderId(this.userId);
         this.isSitDown = false;
         try {
             oos.writeObject(message);
@@ -331,6 +339,19 @@ public class StudyRoomController implements Initializable {
     private Button seatBtn12;
 
     @FXML
+    private Button seatBtn13;
+    @FXML
+    private Button seatBtn14;
+    @FXML
+    private Button seatBtn15;
+    @FXML
+    private Button seatBtn16;
+    @FXML
+    private Button seatBtn17;
+    @FXML
+    private Button seatBtn18;
+
+    @FXML
     protected void onSeatButtonClick1() {
         sitOrStand(seatBtn1);
     }
@@ -389,5 +410,43 @@ public class StudyRoomController implements Initializable {
     protected void onSeatButtonClick12() {
         sitOrStand(seatBtn12);
     }
+    @FXML
+    protected void onSeatButtonClick13() {
+        sitOrStand(seatBtn13);
+    }
 
+    @FXML
+    protected void onSeatButtonClick14() {
+        sitOrStand(seatBtn14);
+    }
+
+    @FXML
+    protected void onSeatButtonClick15() {
+        sitOrStand(seatBtn15);
+    }
+
+    @FXML
+    protected void onSeatButtonClick16() {
+        sitOrStand(seatBtn16);
+    }
+
+    @FXML
+    protected void onSeatButtonClick17() {
+        sitOrStand(seatBtn17);
+    }
+
+    @FXML
+    protected void onSeatButtonClick18() {
+        sitOrStand(seatBtn18);
+    }
+
+    public void beenRemoved() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText("Look, an Error Dialog");
+        alert.setContentText(this.userId + "Ooops, it seems like you have not operated for a long time. You have to login again.");
+        alert.showAndWait();
+        Stage stage = (Stage) studyRoomPane.getScene().getWindow();
+        stage.close();
+    }
 }

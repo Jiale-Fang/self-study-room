@@ -1,5 +1,6 @@
 package com.example.demo.thread;
 
+import com.example.demo.chat.LFUCache;
 import com.example.demo.chat.Server;
 import com.example.demo.constant.MessageTypeConstant;
 import com.example.demo.entity.Message;
@@ -15,8 +16,8 @@ import java.util.Map;
  */
 public class ServerThread extends Thread {
     //    int id; //
-    ObjectOutputStream oos; // To user
-    ObjectInputStream ois; // From user
+    public ObjectOutputStream oos; // To user
+    public ObjectInputStream ois; // From user
 
     public ServerThread(ObjectOutputStream oos, ObjectInputStream ois) {
 //        this.id = id;
@@ -29,17 +30,21 @@ public class ServerThread extends Thread {
         while (true) {
             try {
                 Message message = (Message) ois.readObject();
-                if (message.getType() == MessageTypeConstant.PRIVATE_CHAT_MESSAGE){
-                    UserChatVO userChatVO = (UserChatVO)message.getObject();
+                LFUCache.updateFrequency(message.getSenderId());
+//                System.out.println(Server.clientThreadMap);
+//                System.out.println(LFUCache.nodeMap);
+//                System.out.println(LFUCache.freqMap);
+
+                if (message.getType() == MessageTypeConstant.PRIVATE_CHAT_MESSAGE) {
+                    UserChatVO userChatVO = (UserChatVO) message.getObject();
                     //Get the receiver's thread
                     ServerThread serverThread = Server.clientThreadMap.get(userChatVO.getReceiver());
                     //Only send the message to the receiver
                     serverThread.oos.writeObject(message);
-                    System.out.println("˽����Ϣ"+message);
                     continue;
                 }
 
-                if (message.getType() == MessageTypeConstant.ONE_SEAT_INFO){
+                if (message.getType() == MessageTypeConstant.ONE_SEAT_INFO) {
                     updateSeatMap(message.getObject());
                 }
 
@@ -53,7 +58,7 @@ public class ServerThread extends Thread {
         }
     }
 
-    private void updateSeatMap(Object object){
+    private void updateSeatMap(Object object) {
         Seat seat = (Seat) object;
         Server.seatMap.put(seat.getSeatId(), seat);
     }

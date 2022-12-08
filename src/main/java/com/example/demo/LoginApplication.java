@@ -90,7 +90,7 @@ public class LoginApplication extends Application {
         SignOkButton.setOnAction(e -> { // 转跳主程序界面
             if (user.login(SignAccountTextField.getText(), SignPasswordTextField.getText())) {
                 id = user.getId(SignAccountTextField.getText());
-                Center();
+//                Center();
                 try {
                     StudyRoomApplication studyRoomApplication = new StudyRoomApplication();
                     studyRoomApplication.setUserId(id);
@@ -99,6 +99,7 @@ public class LoginApplication extends Application {
                     throw new RuntimeException(ex);
                 }
                 SignStage.setScene(CenterScene);
+                SignStage.close();
             } else {
                 alert.setContentText("Account or Password is Wrong !!!");
                 alert.show();
@@ -170,9 +171,16 @@ public class LoginApplication extends Application {
                 user.insert(u);
                 alert.setContentText("Successfully");
                 alert.show();
-                user.getId(RegisterAccountLabel.getText());
-                Center();
-                SignStage.setScene(CenterScene);
+                user.getId(u.getAccount());
+//                Center();
+//                StudyRoomApplication studyRoomApplication = new StudyRoomApplication();
+//                studyRoomApplication.setUserId(userId);
+//                try {
+//                    studyRoomApplication.start(new Stage());
+//                } catch (IOException ex) {
+//                    throw new RuntimeException(ex);
+//                }
+//                SignStage.setScene(CenterScene);
             } else
                 alert.setContentText("The account has been existed！");
             alert.show();

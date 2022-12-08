@@ -40,7 +40,6 @@ public class MomentsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<MomentsVO> momentsVOList = momentsService.getAllMoments();
-        System.out.println(momentsVOList);
         for (int i = 0; i < momentsVOList.size(); i++) {
             selectHBox(momentsVOList, i);
         }
@@ -157,7 +156,7 @@ public class MomentsController implements Initializable {
             alert.setContentText("Thumb up successfully!");
             label.setText(String.valueOf(likes + 1));
         } else {
-            alert.setContentText("You dislike this post");
+            alert.setContentText("You cancel your like of this post");
             label.setText(String.valueOf(likes - 1));
         }
         alert.showAndWait();
