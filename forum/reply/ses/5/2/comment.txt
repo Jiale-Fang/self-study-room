@@ -1,0 +1,9 @@
+So let's do some testing together. 
+Firstly can we clean this up to nest the ajax calls? 
+Then can you add in some console.
+log statements to find out what each is sending back? 
+If you miss some output we know where it's going wrong and that'll help us fix things.
+
+Note I've changed success to the 'done' additions 
+because success is a bit out of date, and everything is nested to eliminate the question 
+around whether any blanks are being sent in to the next calls (synchronicity issues):

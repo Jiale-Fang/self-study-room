@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.ForumApplication;
+import com.example.demo.ScoreApplication;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,7 +46,7 @@ public class ViewDetailController {
     public ViewDetailController(String id) throws IOException {
         this.uid = id;
 
-        FXMLLoader fxmlLoader = new FXMLLoader(ForumApplication.class.getResource("view-detail.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ScoreApplication.class.getResource("view-detail.fxml"));
         fxmlLoader.setController(this);
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load());
@@ -83,7 +84,7 @@ public class ViewDetailController {
             totalScore += dist.get(field);
         }
         double interval = 0.04 * pane.getWidth();
-        double height = pane.getHeight();
+        double height = pane.getHeight() * 0.9;
         double width = (pane.getWidth() - 5.0 * interval) / 6.0;
 
         Color[] colors = {Color.BLUE, Color.RED, Color.ORANGE, Color.GREEN};
@@ -94,7 +95,7 @@ public class ViewDetailController {
             text.setFont(Font.font ("Verdana", 20));
             text.setText(listField.get(ind) + " " + listScore.get(ind));
             text.setX(interval * (ind + 1) + width * ind + 10);
-            text.yProperty().bind(pane.heightProperty().subtract(relativeHeight + 25));
+            text.yProperty().bind(pane.heightProperty().subtract(relativeHeight + 10));
             pane.getChildren().add(text);
 
             Rectangle rectangle = new Rectangle();

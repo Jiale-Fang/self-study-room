@@ -1,0 +1,11 @@
+Oracle has a poor record for making it easy to install and configure Java, 
+but using Homebrew, the latest OpenJDK (Java 14) can be installed with:
+
+brew install --cask adoptopenjdk8
+
+For the many use cases depending on an older version (commonly Java 8), 
+the AdoptOpenJDK project makes it possible with an extra step.
+
+brew tap adoptopenjdk/openjdk
+
+brew install --cask adoptopenjdk8

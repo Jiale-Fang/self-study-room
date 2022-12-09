@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.ForumApplication;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -81,6 +82,9 @@ public class ViewPostController {
         stage.setTitle("Post");
         stage.setScene(scene);
         stage.show();
+
+        this.textAreaTheme.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 15));
+        this.textAreaContent.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 14));
     }
 
     @FXML
@@ -116,15 +120,17 @@ public class ViewPostController {
         File imgChose = fileChooser.showOpenDialog(stage);
         if(listImgUpload == null)
             listImgUpload = new ArrayList<>();
-        listImgUpload.add(imgChose);
+        if(imgChose != null) {
+            listImgUpload.add(imgChose);
 
-        // display the target image
-        ImageView imageView = new ImageView(new Image("file:" + imgChose.getAbsolutePath(), imageWidth, imageHeight, false, false));
-        imageView.setLayoutX(imgLayoutX);
-        imageView.setLayoutY(imgLayoutY);
-        imageView.setOnMouseClicked(new ImageViewHandler(imageView));
-        paneImageUpload.getChildren().add(imageView);
-        imgLayoutX += imageWidth + imageInterval;
+            // display the target image
+            ImageView imageView = new ImageView(new Image("file:" + imgChose.getAbsolutePath(), imageWidth, imageHeight, false, false));
+            imageView.setLayoutX(imgLayoutX);
+            imageView.setLayoutY(imgLayoutY);
+            imageView.setOnMouseClicked(new ImageViewHandler(imageView));
+            paneImageUpload.getChildren().add(imageView);
+            imgLayoutX += imageWidth + imageInterval;
+        }
     }
 }
 

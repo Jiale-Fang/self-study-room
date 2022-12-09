@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.ForumApplication;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -119,7 +120,7 @@ public class ViewReadController {
             buttonReply.setLayoutY(imageLayoutY + imageHeight + imageInterval * 2);
 
         // extend paneReply along axis y
-        paneRead.setPrefHeight(2000);
+        paneRead.setPrefHeight(3000);
 
         // get rid and user data
         ServerProcess sp = ServerProcess.getServer();
@@ -162,23 +163,34 @@ public class ViewReadController {
             // ----icon
             double iconWidth = 60;
             double iconHeight = 60;
-            String iconPath = "file:images/QQ20221124-3.jpg";
-            ImageView icon = new ImageView(new Image(iconPath, iconWidth, iconHeight, false, false));
+            ImageView icon = new ImageView();
+            File fileIcon = new File("images/icon/" + uid + ".png");
+            if(fileIcon.exists())
+                icon.setImage(new Image("file:images/icon/" + uid + ".png", iconWidth, iconHeight, false, false));
+            else
+                icon.setImage(new Image("file:images/icon/default.png", iconWidth, iconHeight, false, false));
             icon.setLayoutX(replyLayoutX);
             icon.setLayoutY(replyLayoutY);
             paneRead.getChildren().add(icon);
 
             // ----name
-            Label name = new Label("Uid: " + uid);
+            Label name = new Label();
             name.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 15));
             name.setLayoutX(replyLayoutX + iconWidth + 20);
             name.setLayoutY(replyLayoutY);
+            StringBuilder builderName = new StringBuilder();
+            builderName.append("Name: ");
+            try(Statement statement = ServerProcess.getServer().connection.createStatement()){
+                ResultSet rs = statement.executeQuery("SELECT username FROM user WHERE id='" + uid + "'");
+                rs.next();
+                builderName.append(rs.getString("username"));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            builderName.append("    Uid: ").append(uid);
+            builderName.append("    Reputation Lv. ").append(sp.getLevel(sp.getScoreReputation(uid)));
+            name.setText(builderName.toString());
             paneRead.getChildren().add(name);
-            Label reputation = new Label("Reputation Lv. " + sp.getLevel(sp.getScoreReputation(uid)));
-            reputation.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 13));
-            reputation.setLayoutX(name.getLayoutX() + 100);
-            reputation.setLayoutY(name.getLayoutY());
-            paneRead.getChildren().add(reputation);
 
             // ----content
             File fileComment = new File(replyPath + "/comment.txt");
@@ -207,7 +219,7 @@ public class ViewReadController {
             buttonLike.setLayoutY(comment.getLayoutY() + commentHeight - 40);
             buttonLike.setPrefWidth(buttonLikeWidth);
             buttonLike.setPrefHeight(buttonLikeHeight);
-            buttonLike.setOnAction(new ButtonLikeHandler(uid));
+            buttonLike.setOnAction(new ButtonLikeHandler(uid, field));
             paneRead.getChildren().add(buttonLike);
 
             // ----imageReply
@@ -245,23 +257,34 @@ public class ViewReadController {
         // ----icon
         double iconWidth = 60;
         double iconHeight = 60;
-        String iconPath = "file:images/QQ20221124-3.jpg";
-        ImageView icon = new ImageView(new Image(iconPath, iconWidth, iconHeight, false, false));
+        ImageView icon = new ImageView();
+        File fileIcon = new File("images/icon/" + uid + ".png");
+        if(fileIcon.exists())
+            icon.setImage(new Image("file:images/icon/" + uid + ".png", iconWidth, iconHeight, false, false));
+        else
+            icon.setImage(new Image("file:images/icon/default.png", iconWidth, iconHeight, false, false));
         icon.setLayoutX(nextReplyLayoutX);
         icon.setLayoutY(nextReplyLayoutY);
         paneRead.getChildren().add(icon);
 
         // ----name
-        Label name = new Label("Uid: " + uid);
+        Label name = new Label();
         name.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 15));
         name.setLayoutX(nextReplyLayoutX + iconWidth + 20);
         name.setLayoutY(nextReplyLayoutY);
+        StringBuilder builderName = new StringBuilder();
+        builderName.append("Name: ");
+        try(Statement statement = ServerProcess.getServer().connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT username FROM user WHERE id='" + uid + "'");
+            rs.next();
+            builderName.append(rs.getString("username"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        builderName.append("    Uid: ").append(uid);
+        builderName.append("    Reputation Lv. ").append(sp.getLevel(sp.getScoreReputation(uid)));
+        name.setText(builderName.toString());
         paneRead.getChildren().add(name);
-        Label reputation = new Label("Reputation Lv. " + sp.getLevel(sp.getScoreReputation(uid)));
-        reputation.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 13));
-        reputation.setLayoutX(name.getLayoutX() + 100);
-        reputation.setLayoutY(name.getLayoutY());
-        paneRead.getChildren().add(reputation);
 
         // ----content
         File fileComment = new File(replyPath + "/comment.txt");
@@ -290,7 +313,7 @@ public class ViewReadController {
         buttonLike.setLayoutY(comment.getLayoutY() + commentHeight - 40);
         buttonLike.setPrefWidth(buttonLikeWidth);
         buttonLike.setPrefHeight(buttonLikeHeight);
-        buttonLike.setOnAction(new ButtonLikeHandler(uid));
+        buttonLike.setOnAction(new ButtonLikeHandler(uid, field));
         paneRead.getChildren().add(buttonLike);
 
         // ----imageReply
@@ -323,8 +346,11 @@ class ButtonLikeHandler implements EventHandler<ActionEvent>{
 
     String uid;
 
-    ButtonLikeHandler(String id){
+    String field;
+
+    ButtonLikeHandler(String id, String f){
         this.uid = id;
+        this.field = f;
     }
 
     @Override
@@ -334,10 +360,31 @@ class ButtonLikeHandler implements EventHandler<ActionEvent>{
                 + String.valueOf(sp.getScoreReputation(uid) + 1) + "' WHERE uid='" + uid + "'";
         try(Statement statement = sp.connection.createStatement()){
             statement.execute(sql);
+            sp.updateDistribution(uid, field, 1);
         }
         catch(SQLException exception){
             exception.printStackTrace();
         }
+
+        Stage stage = new Stage();
+        AnchorPane pane = new AnchorPane();
+        Scene scene = new Scene(pane, 400, 300);
+        stage.setScene(scene);
+        ImageView heart = new ImageView(new Image("file:images/buttonLike.jpeg", 80, 80, false, false));
+        heart.setLayoutX(120);
+        heart.setLayoutY(110);
+        pane.getChildren().add(heart);
+        ImageView plusOne = new ImageView(new Image("file:images/plus one.png", 80, 80, false, false));
+        plusOne.setLayoutX(210);
+        plusOne.setLayoutY(110);
+        pane.getChildren().add(plusOne);
+        Button buttonOK = new Button("OK");
+        buttonOK.setPrefSize(60, 30);
+        buttonOK.setLayoutX(170);
+        buttonOK.setLayoutY(240);
+        buttonOK.setOnAction(e -> stage.close());
+        pane.getChildren().add(buttonOK);
+        stage.show();
     }
 }
 
@@ -352,8 +399,8 @@ class ImageViewHandler implements EventHandler<MouseEvent>{
     @Override
     public void handle(MouseEvent mouseEvent) {
         Image img = new Image(imgView.getImage().getUrl());
-        double imgWidth = img.getWidth() > 900? 900 : img.getWidth();
-        double imgHeight = img.getHeight() > 600? 600: img.getHeight();
+        double imgWidth = img.getWidth();
+        double imgHeight = img.getHeight();
         img = new Image(imgView.getImage().getUrl(), imgWidth, imgHeight, false, false);
         Stage stage = new Stage();
         Pane pane = new Pane();

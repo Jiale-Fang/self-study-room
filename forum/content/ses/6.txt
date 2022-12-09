@@ -1,0 +1,3 @@
+How can I pass parameters to a secondary window in javafx? Is there a way to communicate with the corresponding controller?
+
+For example: The user chooses a customer from a TableView and a new window is opened, showing the customer's info.

@@ -1,0 +1,5 @@
+I've just started writing my first JavaFX 2 application after learning the basics and would like to internationalize it.
+
+I notice that in JavaFX 1.x, the scripting language allowed for very simple internationalization of strings. Are there any similar features in JavaFX 2?
+
+Basically: what is the best practice for internationalizing a JavaFX 2 application?

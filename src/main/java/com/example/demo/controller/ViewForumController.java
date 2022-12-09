@@ -1,17 +1,27 @@
 package com.example.demo.controller;
 
 import com.example.demo.ForumApplication;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -21,6 +31,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ViewForumController {
@@ -39,7 +50,7 @@ public class ViewForumController {
 
     Topic topicChose;
 
-    String uid = "123"; // receive uid from main process
+    String uid; // receive uid from main process
 
     String getValueOfComboBoxSelectField(){
         return comboBoxSelectField.getValue();
@@ -62,7 +73,7 @@ public class ViewForumController {
         ServerProcess sp = ServerProcess.getServer();
         ArrayList<String> list = new ArrayList<>();
         try(Statement statement = sp.connection.createStatement()){
-            String sql = "SELECT DISTINCT field from topic";
+            String sql = "SELECT DISTINCT field FROM field";
             ResultSet rs = statement.executeQuery(sql);
             while(rs.next())
                 list.add(rs.getString("field"));
@@ -138,7 +149,29 @@ public class ViewForumController {
     }
 
     public void onButtonPostTopicAction(ActionEvent event) throws IOException {
-        ViewPostController viewPostController = new ViewPostController(this);
+        if(this.comboBoxSelectField.getValue() != null)
+            new ViewPostController(this);
+        else{
+            Stage stage = new Stage();
+            AnchorPane pane = new AnchorPane();
+            Scene scene = new Scene(pane, 400, 200);
+            stage.setScene(scene);
+            Label message = new Label();
+            message.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 15));
+            message.setText("Please select a field before post!");
+            message.setAlignment(Pos.CENTER);
+            message.setPrefWidth(400);
+            message.setLayoutX(0);
+            message.setLayoutY(50);
+            pane.getChildren().add(message);
+            Button buttonOK = new Button("OK");
+            buttonOK.setPrefSize(60, 30);
+            buttonOK.setLayoutX(170);
+            buttonOK.setLayoutY(120);
+            buttonOK.setOnAction(e -> stage.close());
+            pane.getChildren().add(buttonOK);
+            stage.show();
+        }
     }
 
     public void onComboBoxSelectField(ActionEvent event) throws FileNotFoundException {

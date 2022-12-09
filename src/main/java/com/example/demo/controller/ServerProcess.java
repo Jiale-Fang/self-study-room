@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ServerProcess {
@@ -97,17 +98,6 @@ public class ServerProcess {
         }
     }
 
-    public void createAccount(String uid){
-        String sql = "INSERT INTO score VALUES ('" + uid + "','" + 0 + "','" + 0 + "')";
-        try(Statement statement = connection.createStatement()){
-            statement.execute(sql);
-        }
-        catch (SQLException exception){
-            exception.printStackTrace();
-            System.exit(0);
-        }
-    }
-
     public int getLevel(int score){
         return (int)((1 + Math.sqrt(1 + 1.6 * score)) / 2);
     }
@@ -134,7 +124,7 @@ public class ServerProcess {
 
     public int getScoreField(String uid, String field){
         String sql = "SELECT score FROM distribution WHERE uid='" + uid + "' AND field='" + field + "'";
-        int score = 0;
+        int score = -1;
         try(Statement statement = connection.createStatement()){
             ResultSet result = statement.executeQuery(sql);
             while(result.next()){
@@ -150,7 +140,7 @@ public class ServerProcess {
     public void updateDistribution(String uid, String field, int score){
         int currentScore = getScoreField(uid, field);
         String sql;
-        if(currentScore > 0) {
+        if(currentScore >= 0) {
             score += currentScore;
             sql = "UPDATE distribution SET score='" + score + "' WHERE uid='" + uid + "' AND field='" + field + "'";
         }
@@ -163,6 +153,76 @@ public class ServerProcess {
         catch(SQLException exception){
             exception.printStackTrace();
         }
+    }
+
+    public static void signUp(String uid) {     // invoke when create a new account
+        ServerProcess sp = ServerProcess.getServer();
+
+        // table score
+        try(Statement statement = sp.connection.createStatement()){
+            statement.execute("INSERT INTO score VALUES ('" + uid + "','" + 0 + "','" + 0 + "')");
+        }
+        catch(SQLException exception){
+            exception.printStackTrace();
+        }
+
+        // table distribution
+        ArrayList<String> listFields = new ArrayList<>();
+        try(Statement statement = sp.connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT DISTINCT field FROM distribution");
+            while(rs.next())
+                listFields.add(rs.getString("field"));
+            for(String field: listFields){
+                statement.execute("INSERT INTO distribution VALUES ('" + uid + "','" + field + "','" + 0 + "')");
+            }
+        }
+        catch(SQLException exception){
+            exception.printStackTrace();
+        }
+
+        // table farm
+        try(Statement statement = sp.connection.createStatement()){
+            statement.execute("INSERT INTO farm VALUES ('" + uid + "','" + "lemon" + "','" + 0 + "')");
+        }
+        catch(SQLException exception){
+            exception.printStackTrace();
+        }
+
+        // table fruit
+        ArrayList<String> listFruits = new ArrayList<>();
+        try(Statement statement = sp.connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT DISTINCT fruit FROM fruit");
+            while(rs.next())
+                listFruits.add(rs.getString("fruit"));
+            for(String fruit: listFruits)
+                statement.execute("INSERT INTO fruit VALUES ('" + uid + "','" + fruit + "','" + 0 + "')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void logOut(String uid){       // invoke when log out
+        try(Statement statement = ServerProcess.getServer().connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT real_time FROM studytime WHERE uid='" + uid + "'");
+            rs.next();
+            int time = rs.getInt("real_time");
+            ServerProcess.server.updateScoreAccumulation(uid, time / 10);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void synchronizeTables(){ // synchronize data for tables in database
+        ArrayList<String> listUid = new ArrayList<>();
+        try(Statement statement = ServerProcess.getServer().connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT DISTINCT id from user");
+            while(rs.next())
+                listUid.add(rs.getString("id"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for(String uid: listUid)
+            signUp(uid);
     }
 }
 

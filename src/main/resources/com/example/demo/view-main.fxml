@@ -10,9 +10,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="imageViewBackground" fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="54.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageViewIcon" fitHeight="150.0" fitWidth="200.0" layoutX="54.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../self-study/src/main/resources/com/example/selfstudy/images/QQ20221124-3.jpg" />
+            <Image url="@images/QQ20221124-3.jpg" />
          </image>
       </ImageView>
       <Label fx:id="labelName" alignment="CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="40.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to right,#FFCCCC,#FF9966);" text="name" textAlignment="CENTER">
@@ -51,6 +51,11 @@
          </font>
       </Button>
       <Button fx:id="buttonRefresh" layoutX="97.0" layoutY="220.0" mnemonicParsing="false" onAction="#onButtonRefreshAction" prefHeight="60.0" prefWidth="60.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonToFarm" layoutX="500.0" layoutY="429.0" mnemonicParsing="false" onAction="#onButtonToFarm" prefHeight="50.0" prefWidth="150.0" text="To Farm">
          <font>
             <Font size="14.0" />
          </font>

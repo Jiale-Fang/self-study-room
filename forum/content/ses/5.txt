@@ -1,0 +1,7 @@
+I have been trying to display a marker on the map when I click on a Button of my JavaFX application. 
+So what happens is when I click on that button, I write the position in a JSON file, this file will be loaded in the html file that contains the map. 
+The problem is that it works perfectly when I open the html page in the browser, but nothing happens in the JavaFX's web view, 
+and I don't know why !
+
+This is the html file:
+
