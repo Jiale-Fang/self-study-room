@@ -130,7 +130,7 @@ public class UserDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             //2.获取数据库连接
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "your password");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "kllxdwh200021");
 
             //3.获取执行者对象
             stat = conn.createStatement();
@@ -174,7 +174,7 @@ public class UserDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             //2.获取数据库连接
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "your password");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "kllxdwh200021");
 
             //3.获取执行者对象
             stat = conn.createStatement();
@@ -240,7 +240,7 @@ public class UserDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             //2.获取数据库连接
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "your password");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "kllxdwh200021");
 
             //3.获取执行者对象
             stat = conn.createStatement();
@@ -283,7 +283,7 @@ public class UserDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             //2.获取数据库连接
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "your password");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "kllxdwh200021");
 
             //3.获取执行者对象
             stat = conn.createStatement();
@@ -328,7 +328,7 @@ public class UserDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             //2.获取数据库连接
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "your password");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "kllxdwh200021");
 
             //3.获取执行者对象
             stat = conn.createStatement();
@@ -374,7 +374,7 @@ public class UserDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             //2.获取数据库连接
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "your password");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "kllxdwh200021");
 
             //3.获取执行者对象
             stat = conn.createStatement();

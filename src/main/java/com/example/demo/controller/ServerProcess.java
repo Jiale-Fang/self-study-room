@@ -7,7 +7,7 @@ public class ServerProcess {
     Connection connection = null;
     String url = "jdbc:mysql://localhost:3306/studyroom?&useSSL=false&serverTimezone=UTC";
     String user = "root";
-    String password = "your password";
+    String password = "kllxdwh200021";
 
     static ServerProcess server = null;
 
