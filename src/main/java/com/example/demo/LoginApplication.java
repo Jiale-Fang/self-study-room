@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.controller.ServerProcess;
 import com.example.demo.pojo.User;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.UserServiceImpl;
@@ -171,7 +172,8 @@ public class LoginApplication extends Application {
                 user.insert(u);
                 alert.setContentText("Successfully");
                 alert.show();
-                user.getId(u.getAccount());
+                int userId = user.getId(u.getAccount());
+                ServerProcess.signUp(String.valueOf(userId));
 //                Center();
 //                StudyRoomApplication studyRoomApplication = new StudyRoomApplication();
 //                studyRoomApplication.setUserId(userId);

@@ -1,0 +1,8 @@
+I have a very big program that is currently using SWT. 
+The program can be run on both Windows, Mac and Linux, and it is a big desktop application with many elements. 
+Now SWT being somewhat old I would like to switch to either Swing or JavaFX. And I would like to hear your thoughts on three things.
+
+My main concern is what will be better for a desktop GUI application?
+ (I looked online and a lot of people suggest that JavaFX is just as good as Swing, 
+but I didn't see many valid arguments except simple opinion flame wars). 
+It has to work on both Windows, Mac and some popular Linux distributions.

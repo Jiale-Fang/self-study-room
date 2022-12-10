@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.ForumApplication;
+import com.example.demo.ScoreApplication;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +20,7 @@ import java.sql.Statement;
 
 public class ViewMainController {
 
-    String id;
+    String uid;
 
     @FXML
     private Button buttonDetail;
@@ -56,10 +58,18 @@ public class ViewMainController {
     @FXML
     private Button buttonRefresh;
 
-    public ViewMainController(String id) throws IOException {
-        this.id = id;
+    @FXML
+    private ImageView imageViewIcon;
 
-        FXMLLoader fxmlLoader = new FXMLLoader(ForumApplication.class.getResource("mainView.fxml"));
+    @FXML
+    void onButtonToFarm(ActionEvent event) throws IOException {
+        ViewFarmController viewFarmController = new ViewFarmController(uid);
+    }
+
+    public ViewMainController(String id) throws IOException {
+        this.uid = id;
+
+        FXMLLoader fxmlLoader = new FXMLLoader(ScoreApplication.class.getResource("view-main.fxml"));
         fxmlLoader.setController(this);
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load());
@@ -70,7 +80,7 @@ public class ViewMainController {
 
     @FXML
     void onButtonDetailAction(ActionEvent event) throws IOException {
-        ViewDetailController viewDetailController = new ViewDetailController(id);
+        ViewDetailController viewDetailController = new ViewDetailController(uid);
     }
 
     @FXML
@@ -80,8 +90,8 @@ public class ViewMainController {
 
     public void onButtonRefreshAction(ActionEvent event) {
         ServerProcess sp = ServerProcess.getServer();
-        String name = "name";
-        String sql = "SELECT username FROM user WHERE id='" + id + "'";
+        String name = "Name";
+        String sql = "SELECT username FROM user WHERE id='" + uid + "'";
         try(Statement statement = sp.connection.createStatement()){
             ResultSet rs = statement.executeQuery(sql);
             rs.next();
@@ -90,18 +100,25 @@ public class ViewMainController {
             e.printStackTrace();
         }
         labelName.setText("User Name: " + name);
-        labelUid.setText("Uid: " + id);
-        labelExpAccmu.setText("Focus score: " + sp.getScoreAccumulation(id));
-        labelExpRepu.setText("Reputation: " + sp.getScoreReputation(id));
-        labelLvAccmu.setText("Focus Lv.: " + sp.getLevel(sp.getScoreAccumulation(id)));
-        labelLvRepu.setText("Reputation Lv.: " + sp.getLevel(sp.getScoreReputation(id)));
+        labelUid.setText("Uid: " + uid);
+        labelExpAccmu.setText("Focus score: " + sp.getScoreAccumulation(uid));
+        labelExpRepu.setText("Reputation: " + sp.getScoreReputation(uid));
+        labelLvAccmu.setText("Focus Lv.: " + sp.getLevel(sp.getScoreAccumulation(uid)));
+        labelLvRepu.setText("Reputation Lv.: " + sp.getLevel(sp.getScoreReputation(uid)));
     }
 
     @FXML
     public void initialize(){
         ServerProcess sp = ServerProcess.getServer();
-        String name = "name";
-        String sql = "SELECT username FROM user WHERE id='" + id + "'";
+
+        File icon = new File("images/icon/" + uid + ".png");
+        if(icon.exists())
+            imageViewIcon.setImage(new Image("file:images/icon/" + uid + ".png", 100, 100, false, false));
+        else
+            imageViewIcon.setImage(new Image("file:images/icon/default.png", 100, 100, false, false));
+
+        String name = "Name";
+        String sql = "SELECT username FROM user WHERE id='" + uid + "'";
         try(Statement statement = sp.connection.createStatement()){
             ResultSet rs = statement.executeQuery(sql);
             rs.next();
@@ -110,11 +127,11 @@ public class ViewMainController {
             e.printStackTrace();
         }
         labelName.setText("User Name: " + name);
-        labelUid.setText("Uid: " + id);
-        labelExpAccmu.setText("Focus score: " + sp.getScoreAccumulation(id));
-        labelExpRepu.setText("Reputation: " + sp.getScoreReputation(id));
-        labelLvAccmu.setText("Focus Lv.: " + sp.getLevel(sp.getScoreAccumulation(id)));
-        labelLvRepu.setText("Reputation Lv.: " + sp.getLevel(sp.getScoreReputation(id)));
+        labelUid.setText("Uid: " + uid);
+        labelExpAccmu.setText("Focus score: " + sp.getScoreAccumulation(uid));
+        labelExpRepu.setText("Reputation: " + sp.getScoreReputation(uid));
+        labelLvAccmu.setText("Focus Lv.: " + sp.getLevel(sp.getScoreAccumulation(uid)));
+        labelLvRepu.setText("Reputation Lv.: " + sp.getLevel(sp.getScoreReputation(uid)));
         imageViewBackground.setImage(new Image("file:images/67858877_p0.png", 900, 600, false, false));
         buttonRefresh.setGraphic(new ImageView(new Image("file:images/buttonRefresh.jpeg", 45,45,false,false)));
     }

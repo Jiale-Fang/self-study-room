@@ -1,0 +1,1 @@
+Swing vs JavaFx for desktop applications 

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.ForumApplication;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -107,15 +108,17 @@ public class ViewReplyController {
         FileChooser fileChooser = new FileChooser();
         Stage stage = new Stage();
         File imgChose = fileChooser.showOpenDialog(stage);
-        listImgUpload.add(imgChose);
+        if(imgChose != null) {
+            listImgUpload.add(imgChose);
 
-        // display the target image
-        ImageView imageView = new ImageView(new Image("file:" + imgChose.getAbsolutePath(), imageWidth, imageHeight, false, false));
-        imageView.setLayoutX(imgLayoutX);
-        imageView.setLayoutY(imgLayoutY);
-        imageView.setOnMouseClicked(new ImageViewHandler(imageView));
-        paneImageUpload.getChildren().add(imageView);
-        imgLayoutX += imageWidth + imageInterval;
+            // display the target image
+            ImageView imageView = new ImageView(new Image("file:" + imgChose.getAbsolutePath(), imageWidth, imageHeight, false, false));
+            imageView.setLayoutX(imgLayoutX);
+            imageView.setLayoutY(imgLayoutY);
+            imageView.setOnMouseClicked(new ImageViewHandler(imageView));
+            paneImageUpload.getChildren().add(imageView);
+            imgLayoutX += imageWidth + imageInterval;
+        }
     }
 
     public TextArea getTextAreaContent() {

@@ -1,0 +1,5 @@
+The basic steps (among others) of a java app internationalizing, 
+are Localelizing and resource bundling. 
+In JavaFX, you can use FXMLLoader#setResources() for that purposes. 
+Here a SSCCE demo to demonstrate it. The codes are self-descriptive.
+Demo package structure:

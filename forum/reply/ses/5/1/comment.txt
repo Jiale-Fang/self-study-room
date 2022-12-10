@@ -1,0 +1,5 @@
+If I had to guess - one of two things is happening:
+
+Either A) your javaFX is not supporting cross site ajax calls or B) it is not waiting for
+ the asynchronous ajax response/something else is going wrong.
+

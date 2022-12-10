@@ -1,0 +1,12 @@
+I want to do some programming with the latest JavaFX, which requires Java 8. I'm using IntelliJ 13 CE and Mac OS X 9 Mavericks.
+ I ran Oracle's Java 8 installer, and the files look like they ended up at
+
+/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk
+but previous versions are at
+
+/System/Library/Java/JavaFrameworks/jdk1.6....
+Not sure why the latest installer puts this in /Library instead of /System/Library (nor what the difference is). But /usr/libexec/java_home doesn't find 1.8, so all the posts I've found on how to set your current java version don't work. I've tried adding a symbolic link to make it look like 1.8 is in the /System/Library... path, but it doesn't help. /usr/libexec/java_home -V still only lists the old Java 1.6.
+
+Ironically, the "Java" control panel under System Preferences shows only Java 1.8!
+
+Why doesn't Oracle's installer put it where it really goes? And how can I work around this problem?
