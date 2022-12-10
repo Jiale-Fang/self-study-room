@@ -73,7 +73,7 @@ public class ViewForumController {
         ServerProcess sp = ServerProcess.getServer();
         ArrayList<String> list = new ArrayList<>();
         try(Statement statement = sp.connection.createStatement()){
-            String sql = "SELECT DISTINCT field FROM field";
+            String sql = "SELECT DISTINCT field FROM topic";
             ResultSet rs = statement.executeQuery(sql);
             while(rs.next())
                 list.add(rs.getString("field"));
