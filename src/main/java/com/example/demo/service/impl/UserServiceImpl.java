@@ -47,34 +47,4 @@ public class UserServiceImpl implements UserService {
         return contactVOList;
     }
 
-    @Override
-    public int insert(User user) {
-        return userDao.insert(user);
-    }
-
-    @Override
-    public User show(int i) {
-        return userDao.show(i);
-    }
-
-    @Override
-    public int update(User user) {
-        return userDao.update(user);
-    }
-
-    @Override
-    public boolean login(String account, String password) {
-        return userDao.login(account,password);
-    }
-
-    @Override
-    public boolean exist(String account) {
-        return userDao.exist(account);
-    }
-
-    @Override
-    public int getId(String account) {
-        return userDao.getid(account);
-    }
-
 }

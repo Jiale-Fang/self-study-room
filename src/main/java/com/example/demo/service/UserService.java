@@ -15,15 +15,4 @@ public interface UserService {
 
     List<ContactVO> getContactInfo(int userId);
 
-    int insert(User user);
-
-    User show(int i);
-
-    int update(User user);
-
-    boolean login(String account, String password);
-
-    boolean exist(String account);
-
-    int getId(String account);
 }

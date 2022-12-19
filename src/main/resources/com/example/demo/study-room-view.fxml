@@ -38,7 +38,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="188.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="145.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="213.0">
                      <children>
                         <ImageView fx:id="avatarImg" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -63,26 +63,7 @@
                   </HBox>
                </children>
             </VBox>
-            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#openUserInfo" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: Hand;">
-               <image>
-                  <Image url="@images/studyroom/userInfo.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#openForumView" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: Hand;">
-               <image>
-                  <Image url="@images/studyroom/forum.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#openScoreView" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: Hand;">
-               <image>
-                  <Image url="@images/studyroom/achievement.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#openDiagramView" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: Hand;">
-               <image>
-                  <Image url="@images/studyroom/statistics.png" />
-               </image>
-            </ImageView>
+            <HBox prefHeight="64.0" prefWidth="100.0" />
             <ImageView fx:id="chatIcon" fitHeight="55.0" fitWidth="55.0" onMouseClicked="#openChatRoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: Hand;">
                <image>
                   <Image url="@images/studyroom/weChatBtn.png" />
@@ -91,11 +72,6 @@
             <ImageView fitHeight="55.0" fitWidth="55.0" onMouseClicked="#openMoments" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: Hand;">
                <image>
                   <Image url="@images/moments/camera.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="49.0" fitWidth="55.0" onMouseClicked="#openSnackGame" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: Hand;">
-               <image>
-                  <Image url="@images/studyroom/snake.png" />
                </image>
             </ImageView>
          </children>

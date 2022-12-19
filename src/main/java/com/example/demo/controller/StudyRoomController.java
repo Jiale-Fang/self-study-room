@@ -39,17 +39,12 @@ public class StudyRoomController implements Initializable {
     private boolean isSitDown;
     private ObjectOutputStream oos;
     private ChatController chatController;
-    private FXMLLoader taskViewFxml;
     private FXMLLoader userInfoCardFxml;
     private Parent chatRoot;
     private Scene chatScene;
-    private Scene taskViewScene = null;
     private Scene userInfoCardScene = null;
 
-    private static final StudyRoomService studyRoomService = new StudyRoomServiceImpl();
     private static final UserService userService = new UserServiceImpl();
-
-    private static final StudyRoomDao studyRoomDao = new StudyRoomDao();
 
     private static Map<Integer, Button> btnMap = new HashMap<>();
 
@@ -65,11 +60,8 @@ public class StudyRoomController implements Initializable {
         try {
             //Initialize seats
             initializeSeats();
-            taskViewFxml = new FXMLLoader(TaskApplication.class.getResource("task.fxml"));
             userInfoCardFxml = new FXMLLoader(UserInfoCardApplication.class.getResource("user-info-card.fxml"));
-            Parent taskViewRoot = taskViewFxml.load();
             Parent userInfoCardRoot = userInfoCardFxml.load();
-            taskViewScene = new Scene(taskViewRoot, 600, 500);
             userInfoCardScene = new Scene(userInfoCardRoot, 350, 500);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -129,37 +121,6 @@ public class StudyRoomController implements Initializable {
     }
 
     @FXML
-    private void openSnackGame() throws Exception {
-        new SnakeRun().start(new Stage());
-    }
-
-    @FXML
-    private void openForumView() throws IOException {
-        ForumApplication forumApplication = new ForumApplication();
-        forumApplication.setUserId(this.userId);
-        forumApplication.start(new Stage());
-    }
-
-    @FXML
-    private void openScoreView() throws IOException {
-        ScoreApplication scoreApplication = new ScoreApplication();
-        scoreApplication.setUserId(this.userId);
-        scoreApplication.start(new Stage());
-    }
-
-    @FXML
-    private void openDiagramView() {
-        DiagramApplication diagramApplication = new DiagramApplication();
-        diagramApplication.start(new Stage());
-    }
-
-    @FXML
-    private void openUserInfo() {
-        LoginApplication loginApplication = new LoginApplication();
-        loginApplication.openCenter(this.userId);
-    }
-
-    @FXML
     private void openChatRoom() {
         try {
             Stage stage = new Stage();
@@ -168,15 +129,6 @@ public class StudyRoomController implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void openSetTaskView() {
-        Stage stage = new Stage();
-        stage.setTitle("Set Task");
-        stage.setScene(taskViewScene);
-        stage.show();
-        TaskController taskController = taskViewFxml.getController();
-        taskController.setInitializeData(userId);
     }
 
     private void openUserInfoCard(Integer friendId) {
@@ -207,7 +159,6 @@ public class StudyRoomController implements Initializable {
                 alert.showAndWait();
             }
         }
-
     }
 
     private void sitDown(Button button) {
@@ -219,7 +170,6 @@ public class StudyRoomController implements Initializable {
         String[] split = button.getId().split("seatBtn");
         seat.setSeatId(Integer.parseInt(split[1]));
         sitDownBtn(button);
-        openSetTaskView();
         Message message = new Message(MessageTypeConstant.ONE_SEAT_INFO, seat);
         message.setSenderId(this.userId);
         this.isSitDown = true;
