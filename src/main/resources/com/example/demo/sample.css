@@ -1,0 +1,56 @@
+.study-room-pane{
+    -fx-background-image: url("images/studyroom/studyroom.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 850 650;
+    -fx-background-position: center center;
+}
+
+.chat-slide-bar-background {
+    -fx-background-color: #000000;
+    -fx-opacity: 0.7;
+}
+
+.transparent-background {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.chat-background {
+    -fx-background-color: #000000;
+}
+
+.friend-message {
+    -fx-background-color: #2b2b2b;
+    -fx-background-radius: 50px;
+}
+
+.my-message {
+    /*-fx-end-margin: 5px 3 px 1px 0px;*/
+}
+
+.send-btn {
+    -fx-background-image: url("images/studyroom/sendBtn.png");
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-cursor: HAND;
+    -fx-opacity: 0.8;
+}
+
+.moments-background {
+    -fx-background-color: linear-gradient(to right, #EAE5C9 0%, #CCFBFF 30%);
+    /*-fx-background-color: linear-gradient(140.54deg, #608D00 0%, #D30000 72.37%), linear-gradient(58.72deg, #0029FF 0%, #8FFF00 100%), radial-gradient(100% 164.72% at 100% 100%, #6100FF 0%, #00FF57 100%), radial-gradient(100% 148.07% at 0% 0%, #FFF500 0%, #51D500 100%);*/
+}
+
+.moment-detail-background {
+    /*-fx-background-color: #F2F5D0;*/
+    -fx-background-color: linear-gradient(to right, #F9957F 0%, #F2F5D0 80%);
+    /*-fx-background-color: linear-gradient(to right, #EAE5C9 0%, #6CC6CB 70%);*/
+}
+
+.user-card-background {
+    -fx-background-color: linear-gradient(to right, #9FA5D5 0%, #E8F5C8 70%);
+}
+.contact-box {
+    -fx-background-color: #19191A;
+    -fx-spacing: 5;
+    -fx-cursor: HAND;
+}

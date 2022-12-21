@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0" styleClass="user-card-background" stylesheets="@sample.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller.UserInfoCardController">
+   <children>
+      <ImageView fx:id="avatarImg" fitHeight="150.0" fitWidth="150.0" layoutX="100.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+         <image>
+            <Image url="@images/avatar/avatar1.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Label fx:id="username" alignment="CENTER" layoutX="101.0" layoutY="205.0" prefHeight="26.0" prefWidth="150.0" text="iKun">
+         <font>
+            <Font name="Arial Black" size="20.0" />
+         </font>
+      </Label>
+      <Circle fill="#3498db" layoutX="97.0" layoutY="411.0" radius="37.0" stroke="#3498db" strokeType="INSIDE" />
+      <ImageView fx:id="chatBtn" fitHeight="45.0" fitWidth="45.0" layoutX="75.0" layoutY="389.0" onMouseClicked="#openPrivateChat" pickOnBounds="true" preserveRatio="true" smooth="false" style="-fx-cursor: HAND;">
+         <image>
+            <Image url="@images/studyroom/weChat2.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Separator layoutY="339.0" prefHeight="17.0" prefWidth="350.0">
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.8289473652839661" green="0.8020833134651184" blue="0.8020833134651184" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Separator>
+      <Label layoutX="42.0" layoutY="240.0" text="Sex: ">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="genderImage" fitHeight="29.0" fitWidth="26.0" layoutX="86.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/studyroom/male.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="135.0" layoutY="240.0" text="Create Time:">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="287.0" text="Cumulative Study Time:">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+      </Label>
+      <Circle fill="#bb63e1" layoutX="250.0" layoutY="411.0" radius="37.0" stroke="#3498db" strokeType="INSIDE" />
+      <ImageView fx:id="thumbUpBtn" fitHeight="45.0" fitWidth="45.0" layoutX="228.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true" smooth="false" style="-fx-cursor: HAND;">
+         <image>
+            <Image url="@images/studyroom/clover2.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Label fx:id="createTime" layoutX="238.0" layoutY="242.0" text="11/09/2022">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="20.0" fitWidth="36.0" layoutX="14.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" smooth="false" style="-fx-cursor: HAND;">
+         <image>
+            <Image url="@images/studyroom/arrowLeft.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Label fx:id="cumulativeStudyTime" layoutX="220.0" layoutY="289.0" text="48h 17min">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
